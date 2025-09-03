@@ -1,101 +1,416 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>카카오 소식 링크</title>
+  <title>웹임베드형 채널홈</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="format-detection" content="telephone=no, address=no, email=no">
   <style>
-    body { 
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; 
-      margin: 30px; 
-      line-height: 1.6; 
-      background-color: #fafafa;
-      max-width: 800px;
+    /* 기본 스타일 - 원본 CSS 파일을 대체 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    h1 { 
-      font-size: 28px; 
-      margin-bottom: 24px; 
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #ADAB6E;
       color: #333;
-      border-bottom: 3px solid #fee500;
-      padding-bottom: 12px;
     }
-    .link-section {
-      margin: 24px 0;
+    
+    .kakao-doc {
+      margin: 0;
+      padding: 0;
     }
-    .section-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: #555;
-      margin: 16px 0 12px 0;
+    
+    #root {
+      min-height: 100vh;
     }
-    ul { 
-      list-style: none; 
-      padding: 0; 
+    
+    .container-doc {
+      max-width: 100%;
+      margin: 0 auto;
     }
-    li { 
-      margin: 12px 0; 
+    
+    .container-bg {
+      background-color: #ADAB6E;
     }
-    a { 
-      display: inline-block; 
-      padding: 12px 20px; 
-      border-radius: 12px; 
-      background: linear-gradient(135deg, #fee500 0%, #ffeb3b 100%);
-      text-decoration: none; 
-      color: #333; 
-      word-break: break-all;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 8px rgba(254, 229, 0, 0.3);
-      border: 1px solid #e6d000;
-      font-weight: 500;
+    
+    .doc-main {
+      padding: 0;
     }
-    a:hover { 
-      background: linear-gradient(135deg, #e6d000 0%, #fee500 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(254, 229, 0, 0.4);
+    
+    .content-article {
+      margin: 0;
     }
-    .scheme-link {
-      background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
-      border: 1px solid #ddd;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    
+    .screen_out {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
     }
-    .scheme-link:hover {
-      background: linear-gradient(135deg, #e0e0e0 0%, #d8d8d8 100%);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    
+    .content_webview {
+      padding: 20px;
     }
-    .warning {
-      background: #fff3cd;
-      border: 1px solid #ffeaa7;
-      padding: 12px 16px;
-      border-radius: 8px;
-      margin: 16px 0;
+    
+    .profile_item {
+      position: relative;
+      margin-bottom: 30px;
+    }
+    
+    .area_background {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    
+    .img_item {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .bg_gradient {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+    
+    .group_title {
+      text-align: center;
+    }
+    
+    .thumb_profile {
+      margin-bottom: 15px;
+    }
+    
+    .img_profile {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto;
+    }
+    
+    .img_profile svg {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .thumb_bg {
+      fill: #fff;
+    }
+    
+    .thumb_stroke {
+      fill: none;
+      stroke: rgba(0,0,0,0.1);
+      stroke-width: 0.8;
+    }
+    
+    .tit_profile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    .txt_g {
+      color: #333;
+    }
+    
+    .ico_badge {
+      width: 20px;
+      height: 20px;
+      background: #fee500;
+      border-radius: 50%;
+      margin-left: 8px;
+    }
+    
+    .desc_profile {
+      padding: 0 20px;
+    }
+    
+    .txt_desc {
       font-size: 14px;
-      color: #856404;
+      line-height: 1.4;
+      color: #666;
+      word-break: break-all;
+    }
+    
+    /* 테스트 버튼 스타일 추가 */
+    .test_buttons {
+      margin: 30px 0;
+      padding: 0 20px;
+    }
+    
+    .button_group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .test_button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 12px;
+      text-decoration: none;
+      color: #333;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .test_button:hover {
+      background: rgba(255, 255, 255, 1);
+      border-color: #fee500;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .button_content {
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+    
+    .button_icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 12px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: white;
+    }
+    
+    .news_icon {
+      background: linear-gradient(135deg, #4285f4, #34a853);
+    }
+    
+    .shortform_icon {
+      background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    }
+    
+    .button_arrow {
+      font-size: 18px;
+      color: #999;
+    }
+    
+    .content_list {
+      margin-top: 40px;
+    }
+    
+    .list_item {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      list-style: none;
+    }
+    
+    .list_item li {
+      aspect-ratio: 3/4;
+    }
+    
+    .link_cont {
+      display: block;
+      width: 100%;
+      height: 100%;
+      text-decoration: none;
+    }
+    
+    .thumb_item {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .ico_shortform {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      z-index: 1;
+      font-weight: 600;
+    }
+    
+    .svg_source {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
+    
+    .ico_comm {
+      display: inline-block;
     }
   </style>
 </head>
-<body>
-  <h1>카카오 소식 링크 모음</h1>
-  
-  <div class="link-section">
-    <h2 class="section-title">웹 링크 (퍼머링크)</h2>
-    <ul>
-      <li><a href="https://sandbox-pf.kakao.com/_syQ/41976" target="_blank" aria-label="카카오 소식 41976번 웹에서 보기">소식 퍼머링크 41976</a></li>
-      <li><a href="https://sandbox-pf.kakao.com/_syQ/40042" target="_blank" aria-label="카카오 소식 40042번 웹에서 보기">소식 퍼머링크 40042</a></li>
-      <li><a href="https://sandbox-shortform.devel.kakao.com/contents/68a5d4e2555d0d8c7215274b" target="_blank" aria-label="숏폼 웹플레이어">숏폼 웹플레이어</a></li>
-      <li><a href="https://sandbox-pf.kakao.com/_syQ/posts" target="_blank" aria-label="소식아카이브">소식아카이브</a></li>
-    </ul>
-  </div>
 
-  <div class="link-section">
-    <h2 class="section-title">앱 링크 (카카오톡 필요)</h2>
-    <div class="warning">
-      <strong>주의:</strong> 아래 링크들은 카카오톡 앱이 설치된 기기에서만 정상 작동합니다.
+<body class="kakao-doc" style="background-color:#ADAB6E;">
+  <div id="root">
+    <div id="#kakaoWrap">
+      <div class="container-doc container-bg">
+        <main class="doc-main">
+          <article id="mainContent" class="content-article">
+            <h1 class="screen_out">채널홈</h1>
+            <div class="content_webview">
+              <div class="profile_item">
+                <div class="area_background"> 
+                  <img class="img_item" src="https://picsum.photos/400/300?random=1" alt="">
+                  <div class="bg_gradient" style="background: linear-gradient(180deg, rgba(173, 171, 110, 0) 0%, rgba(173, 171, 110, 0.6) 23.56%, #ADAB6E 47.6%);"></div>
+                </div>
+                <div class="group_title">
+                  <div class="thumb_profile">
+                    <div class="img_profile"> 
+                      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                        <g>
+                          <use xlink:href="#shapeSquircle" class="thumb_bg"></use>
+                          <image clip-path="url(#clipThumb)" height="100%" width="100%" xlink:href="https://picsum.photos/116/116?random=2" preserveAspectRatio="xMidYMid slice"></image>
+                          <use xlink:href="#squircleBorder" class="thumb_stroke"></use>
+                        </g>
+                      </svg> 
+                    </div>
+                  </div> 
+                  <strong class="tit_profile"> 
+                    <span class="txt_g">카카오</span>
+                    <span class="ico_comm ico_badge"></span> 
+                  </strong>
+                  <div class="desc_profile">
+                    <p class="txt_desc">일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십</p>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 테스트 버튼 추가 -->
+              <div class="test_buttons">
+                <div class="button_group">
+                  <a href="https://pf.kakao.com/_ZRQBh/110576009" class="test_button" target="_blank">
+                    <div class="button_content">
+                      <div class="button_icon news_icon">뉴</div>
+                      <span>소식 링크 테스트</span>
+                    </div>
+                    <span class="button_arrow">→</span>
+                  </a>
+                  <a href="https://shortform.kakao.com/contents/68a6c919746a30df6ba23181" class="test_button" target="_blank">
+                    <div class="button_content">
+                      <div class="button_icon shortform_icon">숏</div>
+                      <span>숏폼 링크 테스트</span>
+                    </div>
+                    <span class="button_arrow">→</span>
+                  </a>
+                </div>
+              </div>
+              
+              <div class="content_list">
+                <ul class="list_item">
+                  <li> 
+                    <a href="#" class="link_cont">
+                      <div class="thumb_item"> 
+                        <span class="ico_comm ico_shortform">숏폼</span> 
+                        <img class="img_item" src="https://picsum.photos/300/400?random=3" alt="콘텐츠 제목">
+                      </div>
+                    </a> 
+                  </li>
+                  <li> 
+                    <a href="#" class="link_cont">
+                      <div class="thumb_item"> 
+                        <img class="img_item" src="https://picsum.photos/300/400?random=4" alt="콘텐츠 제목">
+                      </div>
+                    </a> 
+                  </li>
+                  <li> 
+                    <a href="#" class="link_cont">
+                      <div class="thumb_item"> 
+                        <span class="ico_comm ico_shortform">숏폼</span> 
+                        <img class="img_item" src="https://picsum.photos/300/400?random=5" alt="콘텐츠 제목">
+                      </div>
+                    </a> 
+                  </li>
+                  <li> 
+                    <a href="#" class="link_cont">
+                      <div class="thumb_item"> 
+                        <span class="ico_comm ico_shortform">숏폼</span> 
+                        <img class="img_item" src="https://picsum.photos/300/400?random=6" alt="콘텐츠 제목">
+                      </div>
+                    </a> 
+                  </li>
+                  <li> 
+                    <a href="#" class="link_cont">
+                      <div class="thumb_item"> 
+                        <span class="ico_comm ico_shortform">숏폼</span> 
+                        <img class="img_item" src="https://picsum.photos/300/400?random=7" alt="콘텐츠 제목">
+                      </div>
+                    </a> 
+                  </li>
+                  <li> 
+                    <a href="#" class="link_cont">
+                      <div class="thumb_item"> 
+                        <span class="ico_comm ico_shortform">숏폼</span> 
+                        <img class="img_item" src="https://picsum.photos/300/400?random=8" alt="콘텐츠 제목">
+                      </div>
+                    </a> 
+                  </li>
+                  <li> 
+                    <a href="#" class="link_cont">
+                      <div class="thumb_item"> 
+                        <span class="ico_comm ico_shortform">숏폼</span> 
+                        <img class="img_item" src="https://picsum.photos/300/400?random=9" alt="콘텐츠 제목">
+                      </div>
+                    </a> 
+                  </li>
+                  <li> 
+                    <a href="#" class="link_cont">
+                      <div class="thumb_item"> 
+                        <span class="ico_comm ico_shortform">숏폼</span> 
+                        <img class="img_item" src="https://picsum.photos/300/400?random=10" alt="콘텐츠 제목">
+                      </div>
+                    </a> 
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </article>
+        </main>
+      </div>
+      
+      <!-- 프로필 프레임 SVG --> 
+      <svg class="svg_source" aria-hidden="true" focusable="false">
+        <defs>
+          <path id="shapeSquircle" d="M48 24C48 41.8267 41.8267 48 24 48C6.17333 48 0 41.8267 0 24C0 6.17333 6.17333 0 24 0C41.8267 0 48 6.17333 48 24Z" />
+          <path id="squircleBorder" d="M24 0C41.8267 2.03235e-07 48 6.17333 48 24C48 41.8267 41.8267 48 24 48C6.17333 48 2.03246e-07 41.8267 0 24C0 6.17333 6.17333 0 24 0ZM24 0.802284C15.1383 0.802284 9.41902 2.34661 5.88281 5.88281C2.34661 9.41902 0.802284 15.1383 0.802284 24C0.802284 32.8617 2.34661 38.581 5.88281 42.1172C9.41902 45.6534 15.1383 47.1977 24 47.1977C32.8617 47.1977 38.581 45.6534 42.1172 42.1172C45.6534 38.581 47.1977 32.8617 47.1977 24C47.1977 15.1383 45.6534 9.41902 42.1172 5.88281C38.581 2.34661 32.8617 0.802284 24 0.802284Z" />
+        </defs>
+        <clipPath id="clipThumb">
+          <use xlink:href="#shapeSquircle"></use>
+        </clipPath>
+      </svg>
     </div>
-    <ul>
-      <li><a href="kakaoplus://plusfriend/post/249685/40042" class="scheme-link" aria-label="카카오톡 앱에서 소식 40042번 보기">소식 스킴 40042 (앱 실행)</a></li>
-      <li><a href="kakaoplus://plusfriend/post/249685/41976" class="scheme-link" aria-label="카카오톡 앱에서 소식 41976번 보기">소식 스킴 41976 (앱 실행)</a></li>
-      <li><a href="kakaotalk://shortform/player?source_page=channel&server_context=eyJpbml0aWFsQ29udGVudElkIjoiNjhhNWQ0ZTI1NTVkMGQ4YzcyMTUyNzRiIiwibmF2aWdhdGlvbiI6eyJ0eXBlIjoiVVNFUl9DT05URU5UUyIsImNyZWF0b3JJZCI6Mjg0MjM3fSwiY29udGVudEN1cnNvciI6eyJsYXN0Q3JlYXRlZEF0IjoxNzU1Njk4NDAyLjU4NTAwMDAwMH19" class="scheme-link" aria-label="카카오톡 앱에서 숏폼 콘텐츠 보기">숏폼 스킴 (앱 실행)</a></li>
-    </ul>
   </div>
 </body>
+
 </html>
