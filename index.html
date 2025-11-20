@@ -6,6 +6,13 @@
   <title>웹임베드형 채널홈</title>
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <meta name="format-detection" content="telephone=no, address=no, email=no">
+  
+  <!-- Open Graph 태그 명시적으로 제거/차단 -->
+  <meta property="og:image" content="">
+  <meta property="og:image:url" content="">
+  <meta property="og:image:secure_url" content="">
+  <meta name="twitter:image" content="">
+  
   <style>
     /* 기본 스타일 - 원본 CSS 파일을 대체 */
     * {
@@ -71,12 +78,12 @@
       overflow: hidden;
       border-radius: 12px;
       margin-bottom: 20px;
+      background: linear-gradient(135deg, #b8b67a 0%, #9a9862 100%);
     }
     
+    /* 이미지를 data-uri로 변경하여 크롤러가 감지하지 못하도록 함 */
     .img_item {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      display: none;
     }
     
     .bg_gradient {
@@ -244,6 +251,7 @@
       height: 100%;
       border-radius: 8px;
       overflow: hidden;
+      background: linear-gradient(135deg, #e0deb4 0%, #c5c391 100%);
     }
     
     .ico_shortform {
@@ -282,7 +290,7 @@
             <div class="content_webview">
               <div class="profile_item">
                 <div class="area_background"> 
-                  <img class="img_item" src="https://picsum.photos/400/300?random=1" alt="">
+                  <!-- 이미지 제거, CSS 배경으로 대체 -->
                   <div class="bg_gradient" style="background: linear-gradient(180deg, rgba(173, 171, 110, 0) 0%, rgba(173, 171, 110, 0.6) 23.56%, #ADAB6E 47.6%);"></div>
                 </div>
                 <div class="group_title">
@@ -291,7 +299,7 @@
                       <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
                         <g>
                           <use xlink:href="#shapeSquircle" class="thumb_bg"></use>
-                          <image clip-path="url(#clipThumb)" height="100%" width="100%" xlink:href="https://picsum.photos/116/116?random=2" preserveAspectRatio="xMidYMid slice"></image>
+                          <!-- 이미지 제거 -->
                           <use xlink:href="#squircleBorder" class="thumb_stroke"></use>
                         </g>
                       </svg> 
@@ -333,22 +341,14 @@
                     <a href="#" class="link_cont">
                       <div class="thumb_item"> 
                         <span class="ico_comm ico_shortform">숏폼</span> 
-                        <img class="img_item" src="https://picsum.photos/300/400?random=3" alt="콘텐츠 제목">
+                        <!-- 이미지 제거 -->
                       </div>
                     </a> 
                   </li>
                   <li> 
                     <a href="#" class="link_cont">
                       <div class="thumb_item"> 
-                        <img class="img_item" src="https://picsum.photos/300/400?random=4" alt="콘텐츠 제목">
-                      </div>
-                    </a> 
-                  </li>
-                  <li> 
-                    <a href="#" class="link_cont">
-                      <div class="thumb_item"> 
-                        <span class="ico_comm ico_shortform">숏폼</span> 
-                        <img class="img_item" src="https://picsum.photos/300/400?random=5" alt="콘텐츠 제목">
+                        <!-- 이미지 제거 -->
                       </div>
                     </a> 
                   </li>
@@ -356,7 +356,7 @@
                     <a href="#" class="link_cont">
                       <div class="thumb_item"> 
                         <span class="ico_comm ico_shortform">숏폼</span> 
-                        <img class="img_item" src="https://picsum.photos/300/400?random=6" alt="콘텐츠 제목">
+                        <!-- 이미지 제거 -->
                       </div>
                     </a> 
                   </li>
@@ -364,7 +364,7 @@
                     <a href="#" class="link_cont">
                       <div class="thumb_item"> 
                         <span class="ico_comm ico_shortform">숏폼</span> 
-                        <img class="img_item" src="https://picsum.photos/300/400?random=7" alt="콘텐츠 제목">
+                        <!-- 이미지 제거 -->
                       </div>
                     </a> 
                   </li>
@@ -372,7 +372,7 @@
                     <a href="#" class="link_cont">
                       <div class="thumb_item"> 
                         <span class="ico_comm ico_shortform">숏폼</span> 
-                        <img class="img_item" src="https://picsum.photos/300/400?random=8" alt="콘텐츠 제목">
+                        <!-- 이미지 제거 -->
                       </div>
                     </a> 
                   </li>
@@ -380,7 +380,7 @@
                     <a href="#" class="link_cont">
                       <div class="thumb_item"> 
                         <span class="ico_comm ico_shortform">숏폼</span> 
-                        <img class="img_item" src="https://picsum.photos/300/400?random=9" alt="콘텐츠 제목">
+                        <!-- 이미지 제거 -->
                       </div>
                     </a> 
                   </li>
@@ -388,7 +388,15 @@
                     <a href="#" class="link_cont">
                       <div class="thumb_item"> 
                         <span class="ico_comm ico_shortform">숏폼</span> 
-                        <img class="img_item" src="https://picsum.photos/300/400?random=10" alt="콘텐츠 제목">
+                        <!-- 이미지 제거 -->
+                      </div>
+                    </a> 
+                  </li>
+                  <li> 
+                    <a href="#" class="link_cont">
+                      <div class="thumb_item"> 
+                        <span class="ico_comm ico_shortform">숏폼</span> 
+                        <!-- 이미지 제거 -->
                       </div>
                     </a> 
                   </li>
