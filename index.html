@@ -1,20 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
-  <meta charset="utf-8">
-  <title>웹임베드형 채널홈</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-  <meta name="format-detection" content="telephone=no, address=no, email=no">
-  
-  <!-- Open Graph 태그 명시적으로 제거/차단 -->
-  <meta property="og:image" content="">
-  <meta property="og:image:url" content="">
-  <meta property="og:image:secure_url" content="">
-  <meta name="twitter:image" content="">
-  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>카카오톡 채널 추가</title>
   <style>
-    /* 기본 스타일 - 원본 CSS 파일을 대체 */
     * {
       margin: 0;
       padding: 0;
@@ -22,403 +12,188 @@
     }
     
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background-color: #ADAB6E;
-      color: #333;
-    }
-    
-    .kakao-doc {
-      margin: 0;
-      padding: 0;
-    }
-    
-    #root {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       min-height: 100vh;
-    }
-    
-    .container-doc {
-      max-width: 100%;
-      margin: 0 auto;
-    }
-    
-    .container-bg {
-      background-color: #ADAB6E;
-    }
-    
-    .doc-main {
-      padding: 0;
-    }
-    
-    .content-article {
-      margin: 0;
-    }
-    
-    .screen_out {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0,0,0,0);
-    }
-    
-    .content_webview {
+      background: linear-gradient(135deg, #FEE500 0%, #FFD700 100%);
       padding: 20px;
     }
     
-    .profile_item {
-      position: relative;
-      margin-bottom: 30px;
-    }
-    
-    .area_background {
-      position: relative;
-      width: 100%;
-      height: 200px;
-      overflow: hidden;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      background: linear-gradient(135deg, #b8b67a 0%, #9a9862 100%);
-    }
-    
-    /* 이미지를 data-uri로 변경하여 크롤러가 감지하지 못하도록 함 */
-    .img_item {
-      display: none;
-    }
-    
-    .bg_gradient {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-    
-    .group_title {
+    .container {
+      background: white;
+      padding: 50px 40px;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
       text-align: center;
-    }
-    
-    .thumb_profile {
-      margin-bottom: 15px;
-    }
-    
-    .img_profile {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto;
-    }
-    
-    .img_profile svg {
+      max-width: 500px;
       width: 100%;
-      height: 100%;
     }
     
-    .thumb_bg {
-      fill: #fff;
+    .logo {
+      font-size: 64px;
+      margin-bottom: 20px;
     }
     
-    .thumb_stroke {
-      fill: none;
-      stroke: rgba(0,0,0,0.1);
-      stroke-width: 0.8;
-    }
-    
-    .tit_profile {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
+    h1 {
+      color: #191919;
+      margin-bottom: 12px;
+      font-size: 28px;
       font-weight: 700;
-      margin-bottom: 10px;
     }
     
-    .txt_g {
-      color: #333;
-    }
-    
-    .ico_badge {
-      width: 20px;
-      height: 20px;
-      background: #fee500;
-      border-radius: 50%;
-      margin-left: 8px;
-    }
-    
-    .desc_profile {
-      padding: 0 20px;
-    }
-    
-    .txt_desc {
-      font-size: 14px;
-      line-height: 1.4;
+    .subtitle {
       color: #666;
-      word-break: break-all;
-    }
-    
-    /* 테스트 버튼 스타일 추가 */
-    .test_buttons {
-      margin: 30px 0;
-      padding: 0 20px;
-    }
-    
-    .button_group {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    
-    .test_button {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 20px;
-      background: rgba(255, 255, 255, 0.9);
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      border-radius: 12px;
-      text-decoration: none;
-      color: #333;
+      margin-bottom: 40px;
+      line-height: 1.6;
       font-size: 16px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
     
-    .test_button:hover {
-      background: rgba(255, 255, 255, 1);
-      border-color: #fee500;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-    }
-    
-    .button_content {
+    #kakao-talk-channel-add-button {
+      margin: 30px 0;
+      min-height: 48px;
       display: flex;
-      align-items: center;
-      flex: 1;
-    }
-    
-    .button_icon {
-      width: 24px;
-      height: 24px;
-      margin-right: 12px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
       justify-content: center;
-      font-size: 14px;
-      font-weight: 700;
-      color: white;
+      align-items: center;
     }
     
-    .news_icon {
-      background: linear-gradient(135deg, #4285f4, #34a853);
-    }
-    
-    .shortform_icon {
-      background: linear-gradient(135deg, #ff6b6b, #ee5a52);
-    }
-    
-    .button_arrow {
-      font-size: 18px;
+    #loading {
       color: #999;
+      font-size: 14px;
     }
     
-    .content_list {
+    .status-box {
       margin-top: 40px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      border-left: 4px solid #FEE500;
     }
     
-    .list_item {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      list-style: none;
-    }
-    
-    .list_item li {
-      aspect-ratio: 3/4;
-    }
-    
-    .link_cont {
-      display: block;
-      width: 100%;
-      height: 100%;
-      text-decoration: none;
-    }
-    
-    .thumb_item {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      border-radius: 8px;
-      overflow: hidden;
-      background: linear-gradient(135deg, #e0deb4 0%, #c5c391 100%);
-    }
-    
-    .ico_shortform {
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      background: rgba(0, 0, 0, 0.7);
-      color: white;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 12px;
-      z-index: 1;
+    .status-title {
       font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+      font-size: 14px;
     }
     
-    .svg_source {
-      position: absolute;
-      width: 0;
-      height: 0;
-      overflow: hidden;
+    #status {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
     }
     
-    .ico_comm {
-      display: inline-block;
+    .instructions {
+      margin-top: 30px;
+      padding: 20px;
+      background: #fff8e1;
+      border-radius: 12px;
+      text-align: left;
+      font-size: 14px;
+      line-height: 1.8;
+      color: #555;
+    }
+    
+    .instructions strong {
+      color: #333;
+      display: block;
+      margin-bottom: 8px;
+    }
+    
+    .instructions li {
+      margin-left: 20px;
+      margin-bottom: 5px;
     }
   </style>
 </head>
-
-<body class="kakao-doc" style="background-color:#ADAB6E;">
-  <div id="root">
-    <div id="#kakaoWrap">
-      <div class="container-doc container-bg">
-        <main class="doc-main">
-          <article id="mainContent" class="content-article">
-            <h1 class="screen_out">채널홈</h1>
-            <div class="content_webview">
-              <div class="profile_item">
-                <div class="area_background"> 
-                  <!-- 이미지 제거, CSS 배경으로 대체 -->
-                  <div class="bg_gradient" style="background: linear-gradient(180deg, rgba(173, 171, 110, 0) 0%, rgba(173, 171, 110, 0.6) 23.56%, #ADAB6E 47.6%);"></div>
-                </div>
-                <div class="group_title">
-                  <div class="thumb_profile">
-                    <div class="img_profile"> 
-                      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-                        <g>
-                          <use xlink:href="#shapeSquircle" class="thumb_bg"></use>
-                          <!-- 이미지 제거 -->
-                          <use xlink:href="#squircleBorder" class="thumb_stroke"></use>
-                        </g>
-                      </svg> 
-                    </div>
-                  </div> 
-                  <strong class="tit_profile"> 
-                    <span class="txt_g">카카오</span>
-                    <span class="ico_comm ico_badge"></span> 
-                  </strong>
-                  <div class="desc_profile">
-                    <p class="txt_desc">일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십</p>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- 테스트 버튼 추가 -->
-              <div class="test_buttons">
-                <div class="button_group">
-                  <a href="https://pf.kakao.com/_ZRQBh/110576009" class="test_button" target="_blank">
-                    <div class="button_content">
-                      <div class="button_icon news_icon">뉴</div>
-                      <span>소식 링크 테스트</span>
-                    </div>
-                    <span class="button_arrow">→</span>
-                  </a>
-                  <a href="https://shortform.kakao.com/contents/68a6c919746a30df6ba23181" class="test_button" target="_blank">
-                    <div class="button_content">
-                      <div class="button_icon shortform_icon">숏</div>
-                      <span>숏폼 링크 테스트</span>
-                    </div>
-                    <span class="button_arrow">→</span>
-                  </a>
-                </div>
-              </div>
-              
-              <div class="content_list">
-                <ul class="list_item">
-                  <li> 
-                    <a href="#" class="link_cont">
-                      <div class="thumb_item"> 
-                        <span class="ico_comm ico_shortform">숏폼</span> 
-                        <!-- 이미지 제거 -->
-                      </div>
-                    </a> 
-                  </li>
-                  <li> 
-                    <a href="#" class="link_cont">
-                      <div class="thumb_item"> 
-                        <!-- 이미지 제거 -->
-                      </div>
-                    </a> 
-                  </li>
-                  <li> 
-                    <a href="#" class="link_cont">
-                      <div class="thumb_item"> 
-                        <span class="ico_comm ico_shortform">숏폼</span> 
-                        <!-- 이미지 제거 -->
-                      </div>
-                    </a> 
-                  </li>
-                  <li> 
-                    <a href="#" class="link_cont">
-                      <div class="thumb_item"> 
-                        <span class="ico_comm ico_shortform">숏폼</span> 
-                        <!-- 이미지 제거 -->
-                      </div>
-                    </a> 
-                  </li>
-                  <li> 
-                    <a href="#" class="link_cont">
-                      <div class="thumb_item"> 
-                        <span class="ico_comm ico_shortform">숏폼</span> 
-                        <!-- 이미지 제거 -->
-                      </div>
-                    </a> 
-                  </li>
-                  <li> 
-                    <a href="#" class="link_cont">
-                      <div class="thumb_item"> 
-                        <span class="ico_comm ico_shortform">숏폼</span> 
-                        <!-- 이미지 제거 -->
-                      </div>
-                    </a> 
-                  </li>
-                  <li> 
-                    <a href="#" class="link_cont">
-                      <div class="thumb_item"> 
-                        <span class="ico_comm ico_shortform">숏폼</span> 
-                        <!-- 이미지 제거 -->
-                      </div>
-                    </a> 
-                  </li>
-                  <li> 
-                    <a href="#" class="link_cont">
-                      <div class="thumb_item"> 
-                        <span class="ico_comm ico_shortform">숏폼</span> 
-                        <!-- 이미지 제거 -->
-                      </div>
-                    </a> 
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </article>
-        </main>
-      </div>
-      
-      <!-- 프로필 프레임 SVG --> 
-      <svg class="svg_source" aria-hidden="true" focusable="false">
-        <defs>
-          <path id="shapeSquircle" d="M48 24C48 41.8267 41.8267 48 24 48C6.17333 48 0 41.8267 0 24C0 6.17333 6.17333 0 24 0C41.8267 0 48 6.17333 48 24Z" />
-          <path id="squircleBorder" d="M24 0C41.8267 2.03235e-07 48 6.17333 48 24C48 41.8267 41.8267 48 24 48C6.17333 48 2.03246e-07 41.8267 0 24C0 6.17333 6.17333 0 24 0ZM24 0.802284C15.1383 0.802284 9.41902 2.34661 5.88281 5.88281C2.34661 9.41902 0.802284 15.1383 0.802284 24C0.802284 32.8617 2.34661 38.581 5.88281 42.1172C9.41902 45.6534 15.1383 47.1977 24 47.1977C32.8617 47.1977 38.581 45.6534 42.1172 42.1172C45.6534 38.581 47.1977 32.8617 47.1977 24C47.1977 15.1383 45.6534 9.41902 42.1172 5.88281C38.581 2.34661 32.8617 0.802284 24 0.802284Z" />
-        </defs>
-        <clipPath id="clipThumb">
-          <use xlink:href="#shapeSquircle"></use>
-        </clipPath>
-      </svg>
+<body>
+  <div class="container">
+    <div class="logo">💬</div>
+    <h1>카카오톡 채널 추가</h1>
+    <p class="subtitle">아래 버튼을 클릭하여 카카오톡 채널을 추가하세요</p>
+    
+    <div 
+      id="kakao-talk-channel-add-button"
+      data-channel-public-id="_tlscxj"
+      data-size="small"
+      data-support-multiple-densities="true">
+      <div id="loading">⏳ 버튼 로딩 중...</div>
+    </div>
+    
+    <div class="status-box">
+      <div class="status-title">📊 로딩 상태</div>
+      <div id="status">SDK 로딩 중...</div>
+    </div>
+    
+    <div class="instructions">
+      <strong>📱 사용 방법</strong>
+      <ul>
+        <li>PC: 카카오톡 채널 웹 페이지로 이동</li>
+        <li>모바일: 카카오톡 앱이 자동 실행</li>
+        <li>채널 추가 후 메시지를 주고받을 수 있습니다</li>
+      </ul>
     </div>
   </div>
-</body>
 
+  <script>
+    const statusEl = document.getElementById('status');
+    const loadingEl = document.getElementById('loading');
+    
+    // SDK 로딩 완료 후 실행
+    window.kakaoAsyncInit = function() {
+      statusEl.textContent = 'SDK 로딩 완료! 버튼 생성 중...';
+      
+      setTimeout(function() {
+        try {
+          if (typeof Kakao !== 'undefined' && Kakao.Channel) {
+            Kakao.Channel.createAddChannelButton({
+              container: '#kakao-talk-channel-add-button',
+            });
+            statusEl.textContent = '✅ 버튼이 정상적으로 생성되었습니다!';
+            if (loadingEl) loadingEl.style.display = 'none';
+          } else {
+            statusEl.textContent = '❌ Kakao 객체를 찾을 수 없습니다.';
+          }
+        } catch (error) {
+          statusEl.textContent = '❌ 버튼 생성 실패: ' + error.message;
+          console.error('Kakao button error:', error);
+        }
+      }, 100);
+    };
+    
+    // SDK 스크립트 동적 로드
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
+        statusEl.textContent = 'SDK가 이미 로드되어 있습니다.';
+        return;
+      }
+      
+      js = d.createElement(s); 
+      js.id = id;
+      js.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.channel.min.js';
+      js.integrity = 'sha384-8oNFBbAHWVovcMLgR+mLbxqwoucixezSAzniBcjnEoumhfIbMIg4DrVsoiPEtlnt';
+      js.crossOrigin = 'anonymous';
+      
+      js.onload = function() {
+        console.log('Kakao SDK loaded successfully');
+      };
+      
+      js.onerror = function() {
+        statusEl.textContent = '❌ SDK 로딩 실패. 네트워크를 확인해주세요.';
+        console.error('Failed to load Kakao SDK');
+      };
+      
+      fjs.parentNode.insertBefore(js, fjs);
+    })(document, 'script', 'kakao-js-sdk');
+    
+    // 타임아웃 체크 (10초)
+    setTimeout(function() {
+      if (statusEl.textContent === 'SDK 로딩 중...') {
+        statusEl.textContent = '⚠️ SDK 로딩이 지연되고 있습니다. 페이지를 새로고침해주세요.';
+      }
+    }, 10000);
+  </script>
+</body>
 </html>
